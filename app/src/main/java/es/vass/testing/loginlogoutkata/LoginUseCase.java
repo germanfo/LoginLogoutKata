@@ -6,10 +6,8 @@ package es.vass.testing.loginlogoutkata;
 
 class LoginUseCase {
     public boolean doLogin(String email, String password) {
-        if (!"wrong".equals(password)) {
+
             return true;
-        } else {
-            return false;
-        }
+
     }
 }

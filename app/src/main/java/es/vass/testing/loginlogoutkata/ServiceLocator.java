@@ -6,7 +6,7 @@ package es.vass.testing.loginlogoutkata;
 
 public class ServiceLocator {
 
-    public static LoginPresenter provideLoginPresenter(LoginPresenter.LoginPresenterView loginPresenterView){
-        return new LoginPresenter(loginPresenterView, new ValidateEmailPassword(), new LoginUseCase());
+    public static LoginPresenter provideLoginPresenter(LoginPresenter.LoginPresenterView loginPresenterView, LoginUseCase loginUseCase){
+        return new LoginPresenter(loginPresenterView, new ValidateEmailPassword(), loginUseCase);
     }
 }

@@ -22,7 +22,7 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        loginPresenter = ServiceLocator.provideLoginPresenter(this);
+        loginPresenter = ServiceLocator.provideLoginPresenter(this, new LoginUseCase());
         initViews();
 
         addTextWatcher();
