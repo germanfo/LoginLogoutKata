@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity implements LoginPresenter.LoginPresenterView{
 
@@ -70,6 +72,13 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
         et_user = findViewById(R.id.et_login);
         et_password = findViewById(R.id.et_password);
         bt_login = findViewById(R.id.bt_login);
+
+        bt_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loginPresenter.doLogin();
+            }
+        });
     }
 
 
@@ -81,5 +90,15 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
     @Override
     public void setLoginDisabled() {
         bt_login.setEnabled(false);
+    }
+
+    @Override
+    public void loginDone() {
+        Toast.makeText(this, "Login OK", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void passwordError(String errorText) {
+        Toast.makeText(this, errorText, Toast.LENGTH_LONG).show();
     }
 }

@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import static junit.framework.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.anyBoolean;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -18,6 +19,7 @@ public class ValidateEmailPasswordTest {
 
     private static final String NOT_EMPTY_EMAIL = "mail";
     private static final String NOT_EMPTY_PASSWORD = "pass";
+    private static final String WRONG_PASSWORD = "wrong";
 
     private SpyLoginActivity spyLoginActivity;
     private LoginPresenter testLoginPresenter;
@@ -51,4 +53,14 @@ public class ValidateEmailPasswordTest {
         //assertTrue(spyLoginActivity.isLoginEnabledCalled());
         verify(view).setLoginEnabled();
     }
+
+    @Test public void shouldShowErrorOnWrongPassword() throws Exception {
+        testLoginPresenter.setLoginUser(NOT_EMPTY_EMAIL);
+        testLoginPresenter.setLoginPassword(WRONG_PASSWORD);
+
+        testLoginPresenter.doLogin();
+
+        verify(view).passwordError(anyString());
+    }
+
 }

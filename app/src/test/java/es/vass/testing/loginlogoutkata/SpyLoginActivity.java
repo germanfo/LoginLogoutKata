@@ -36,4 +36,14 @@ public class SpyLoginActivity implements LoginPresenter.LoginPresenterView {
     public void setLoginDisabled() {
         enabledValue = false;
     }
+
+    @Override
+    public void loginDone() {
+
+    }
+
+    @Override
+    public void passwordError(String errorText) {
+
+    }
 }

@@ -9,15 +9,19 @@ public class LoginPresenter {
     private final LoginPresenterView loginPresenterView;
     private String loginUser, loginPassword;
     private ValidateEmailPassword validateEmailPassword;
+    private LoginUseCase loginUseCase;
 
     interface LoginPresenterView {
         void setLoginEnabled();
         void setLoginDisabled();
+        void loginDone();
+        void passwordError(String errorText);
     }
 
-    public LoginPresenter(LoginPresenterView loginPresenterView, ValidateEmailPassword validateEmailPassword) {
+    public LoginPresenter(LoginPresenterView loginPresenterView, ValidateEmailPassword validateEmailPassword, LoginUseCase loginUseCase) {
         this.loginPresenterView = loginPresenterView;
         this.validateEmailPassword = validateEmailPassword;
+        this.loginUseCase = loginUseCase;
 
     }
 
@@ -37,6 +41,14 @@ public class LoginPresenter {
         }
         else {
             loginPresenterView.setLoginDisabled();
+        }
+    }
+
+    public void doLogin(){
+        if (loginUseCase.doLogin(loginUser, loginPassword)){
+            loginPresenterView.loginDone();
+        }else {
+            loginPresenterView.passwordError("Password incorrecto");
         }
     }
 }
