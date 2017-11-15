@@ -8,25 +8,27 @@ import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements LoginPresenter.LoginPresenterView{
 
     private EditText et_user;
     private EditText et_password;
     private Button bt_login;
-    private ValidateEmailPassword validateEmailPassword = new ValidateEmailPassword();
+    private LoginPresenter loginPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        loginPresenter = ServiceLocator.provideLoginPresenter(this);
         initViews();
 
         addTextWatcher();
     }
 
     private void addTextWatcher() {
-        TextWatcher textWatcher = new TextWatcher() {
+
+        et_user.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
@@ -34,31 +36,35 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                checkEnableOrDisableLoginButton();
+
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
+                loginPresenter.setLoginUser(et_user.getText().toString());
+            }
+        });
+
+        et_password.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
             }
-        };
 
-        et_user.addTextChangedListener(textWatcher);
-        et_password.addTextChangedListener(textWatcher);
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-        //initial call
-        checkEnableOrDisableLoginButton();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                loginPresenter.setLoginPassword(et_password.getText().toString());
+            }
+        });
+
+
     }
 
-    private void checkEnableOrDisableLoginButton() {
-        String loginText = et_user.getText().toString();
-        String passwordText = et_password.getText().toString();
-
-
-        boolean enable = validateEmailPassword.validate(loginText, passwordText);
-
-        bt_login.setEnabled(enable);
-    }
 
     private void initViews() {
         et_user = findViewById(R.id.et_login);
@@ -67,5 +73,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-
+    @Override
+    public void setLoginEnabled(boolean enabled) {
+        bt_login.setEnabled(enabled);
+    }
 }
