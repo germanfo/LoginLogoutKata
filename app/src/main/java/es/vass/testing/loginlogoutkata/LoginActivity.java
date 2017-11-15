@@ -13,6 +13,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText et_user;
     private EditText et_password;
     private Button bt_login;
+    private ValidateEmailPassword validateEmailPassword = new ValidateEmailPassword();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,12 +54,10 @@ public class LoginActivity extends AppCompatActivity {
         String loginText = et_user.getText().toString();
         String passwordText = et_password.getText().toString();
 
-        if (!TextUtils.isEmpty(loginText) && !TextUtils.isEmpty(passwordText)){
-            bt_login.setEnabled(true);
-        }
-        else {
-            bt_login.setEnabled(false);
-        }
+
+        boolean enable = validateEmailPassword.validate(loginText, passwordText);
+
+        bt_login.setEnabled(enable);
     }
 
     private void initViews() {
