@@ -27,8 +27,13 @@ public class SpyLoginActivity implements LoginPresenter.LoginPresenterView {
     private boolean enabledValue;
 
     @Override
-    public void setLoginEnabled(boolean enabled) {
+    public void setLoginEnabled() {
         loginEnabledCalled = true;
-        enabledValue = enabled;
+        enabledValue = true;
+    }
+
+    @Override
+    public void setLoginDisabled() {
+        enabledValue = false;
     }
 }

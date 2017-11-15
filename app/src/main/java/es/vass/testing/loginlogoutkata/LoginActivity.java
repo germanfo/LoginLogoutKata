@@ -74,7 +74,12 @@ public class LoginActivity extends AppCompatActivity implements LoginPresenter.L
 
 
     @Override
-    public void setLoginEnabled(boolean enabled) {
-        bt_login.setEnabled(enabled);
+    public void setLoginEnabled() {
+        bt_login.setEnabled(true);
+    }
+
+    @Override
+    public void setLoginDisabled() {
+        bt_login.setEnabled(false);
     }
 }

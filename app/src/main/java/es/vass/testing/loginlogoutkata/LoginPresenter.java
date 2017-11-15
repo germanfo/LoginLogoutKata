@@ -11,7 +11,8 @@ public class LoginPresenter {
     private ValidateEmailPassword validateEmailPassword;
 
     interface LoginPresenterView {
-        void setLoginEnabled(boolean enabled);
+        void setLoginEnabled();
+        void setLoginDisabled();
     }
 
     public LoginPresenter(LoginPresenterView loginPresenterView, ValidateEmailPassword validateEmailPassword) {
@@ -31,6 +32,11 @@ public class LoginPresenter {
     }
 
     private void checkValidLogin() {
-        loginPresenterView.setLoginEnabled(validateEmailPassword.validate(loginUser, loginPassword));
+        if (validateEmailPassword.validate(loginUser, loginPassword)) {
+            loginPresenterView.setLoginEnabled();
+        }
+        else {
+            loginPresenterView.setLoginDisabled();
+        }
     }
 }

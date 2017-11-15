@@ -5,7 +5,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static junit.framework.Assert.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
@@ -41,7 +40,7 @@ public class ValidateEmailPasswordTest {
         testLoginPresenter.setLoginPassword(NOT_EMPTY_PASSWORD);
 
         //assertTrue(spyLoginActivity.isEnabledValue());
-        verify(view,times(2)).setLoginEnabled(anyBoolean());
+        verify(view,times(1)).setLoginEnabled();
 
     }
 
@@ -49,6 +48,7 @@ public class ValidateEmailPasswordTest {
         testLoginPresenter.setLoginUser(NOT_EMPTY_EMAIL);
         testLoginPresenter.setLoginPassword(NOT_EMPTY_PASSWORD);
 
-        assertTrue(spyLoginActivity.isLoginEnabledCalled());
+        //assertTrue(spyLoginActivity.isLoginEnabledCalled());
+        verify(view).setLoginEnabled();
     }
 }
